@@ -1,0 +1,17 @@
+D:\C#\C#Arrays\C#Arrays\bin\Debug\net8.0\C#Arrays.exe
+D:\C#\C#Arrays\C#Arrays\bin\Debug\net8.0\C#Arrays.deps.json
+D:\C#\C#Arrays\C#Arrays\bin\Debug\net8.0\C#Arrays.runtimeconfig.json
+D:\C#\C#Arrays\C#Arrays\bin\Debug\net8.0\C#Arrays.dll
+D:\C#\C#Arrays\C#Arrays\bin\Debug\net8.0\C#Arrays.pdb
+D:\C#\C#Arrays\C#Arrays\obj\Debug\net8.0\C#Arrays.GeneratedMSBuildEditorConfig.editorconfig
+D:\C#\C#Arrays\C#Arrays\obj\Debug\net8.0\C#Arrays.AssemblyInfoInputs.cache
+D:\C#\C#Arrays\C#Arrays\obj\Debug\net8.0\C#Arrays.AssemblyInfo.cs
+D:\C#\C#Arrays\C#Arrays\obj\Debug\net8.0\C#Arrays.csproj.CoreCompileInputs.cache
+D:\C#\C#Arrays\C#Arrays\obj\Debug\net8.0\C#Arrays.dll
+D:\C#\C#Arrays\C#Arrays\obj\Debug\net8.0\refint\C#Arrays.dll
+D:\C#\C#Arrays\C#Arrays\obj\Debug\net8.0\C#Arrays.pdb
+D:\C#\C#Arrays\C#Arrays\obj\Debug\net8.0\C#Arrays.genruntimeconfig.cache
+D:\C#\C#Arrays\C#Arrays\obj\Debug\net8.0\ref\C#Arrays.dll
+D:\C#\C#Arrays\C#Arrays\bin\Debug\net8.0\Microsoft.AI.Agent.Intercept.dll
+D:\C#\C#Arrays\C#Arrays\obj\Debug\net8.0\C#Arrays.csproj.AssemblyReference.cache
+D:\C#\C#Arrays\C#Arrays\obj\Debug\net8.0\C#Arrays.csproj.Up2Date
