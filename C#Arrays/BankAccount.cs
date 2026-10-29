@@ -6,6 +6,9 @@
         private string accountNumber;
         private static int totalAccounts;
 
+        public decimal Balance => balance;
+        public string AccountNumber => accountNumber;
+
 
         public BankAccount(decimal startBalance, string accountNumber = null)
         {
@@ -22,17 +25,20 @@
             }
             balance += amount;
         }
-        public void Withdraw(decimal amount)
+        public bool Withdraw(decimal amount)
         {
             if (amount <= 0)
             {
-                throw new ArgumentException("Сумма должна быть больше нуля");
+                Console.WriteLine("Сумма должна быть больше нуля");
+                return false;
             }
             if (amount > balance)
             {
-                throw new InvalidOperationException("Недостаточно средств");
+                Console.WriteLine("Недостаточно средств, операция не выполнена");
+                return false;
             }
             balance -= amount;
+            return true;
         }
         public static int GetTotalAccountsCount()
         {

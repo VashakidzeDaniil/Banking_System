@@ -9,8 +9,6 @@
             interestRate = rate;
         }
 
-
-
         public void AddInterest()
         {
             balance += balance * interestRate;

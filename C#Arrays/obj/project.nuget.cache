@@ -1,22 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "jidj2cf75eA=",
+  "dgSpecHash": "a/lRzlZu8h4=",
   "success": true,
-  "projectFilePath": "D:\\C#\\BankingSystem\\C#Arrays\\BankingSystem.csproj",
+  "projectFilePath": "C:\\C#\\Banking_System\\C#Arrays\\BankingSystem.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\del84\\.nuget\\packages\\microsoft.applicationinsights.agent.intercept\\2.4.0\\microsoft.applicationinsights.agent.intercept.2.4.0.nupkg.sha512"
+    "C:\\Users\\comp\\.nuget\\packages\\microsoft.applicationinsights.agent.intercept\\2.4.0\\microsoft.applicationinsights.agent.intercept.2.4.0.nupkg.sha512"
   ],
   "logs": [
     {
       "code": "NU1701",
       "level": "Warning",
-      "message": "Пакет \"Microsoft.ApplicationInsights.Agent.Intercept 2.4.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net8.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "projectPath": "D:\\C#\\BankingSystem\\C#Arrays\\BankingSystem.csproj",
+      "message": "Пакет \"Microsoft.ApplicationInsights.Agent.Intercept 2.4.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net10.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "projectPath": "C:\\C#\\Banking_System\\C#Arrays\\BankingSystem.csproj",
       "warningLevel": 1,
-      "filePath": "D:\\C#\\BankingSystem\\C#Arrays\\BankingSystem.csproj",
+      "filePath": "C:\\C#\\Banking_System\\C#Arrays\\BankingSystem.csproj",
       "libraryId": "Microsoft.ApplicationInsights.Agent.Intercept",
       "targetGraphs": [
-        "net8.0"
+        "net10.0"
       ]
     }
   ]
