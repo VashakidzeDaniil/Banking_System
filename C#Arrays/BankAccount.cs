@@ -1,18 +1,19 @@
 ﻿namespace C_Arrays
 {
-    public class BankAccount
+    public abstract class BankAccount
     {
         protected decimal balance;
         private string accountNumber;
         private static int totalAccounts;
 
 
-        public BankAccount(decimal startBalance)
+        public BankAccount(decimal startBalance, string accountNumber = null)
         {
             totalAccounts++;
-            accountNumber = $"RU-{totalAccounts:D4}";
+            this.accountNumber = accountNumber ?? $"RU-{totalAccounts:D4}";
             balance = startBalance;
         }
+
         public void Deposit(decimal amount)
         {
             if (amount <= 0)
@@ -41,5 +42,23 @@
         {
             Console.WriteLine($"Номер Аккаунта:{accountNumber}\nБаланс:{balance}");
         }
+
+        public override bool Equals(object obj)
+        {
+            //if (obj == null) return false;
+            //if (obj is not BankAccount) return false;  // или: if (!(obj is BankAccount))
+            //var other = (BankAccount)obj;              // теперь приведение безопасно
+            //return AccountNumber == other.AccountNumber;
+            
+            if (obj is not BankAccount other)
+                return false;
+
+            return accountNumber == other.accountNumber;
+        }
+        public override int GetHashCode()
+        {
+            return accountNumber.GetHashCode();
+        }
+        public abstract void ApplyMonthlyUpdate();
     }
 }
