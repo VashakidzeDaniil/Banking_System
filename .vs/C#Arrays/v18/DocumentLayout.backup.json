@@ -7,8 +7,8 @@
       "RelativeMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|solutionrelative:c#arrays\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|c:\\c#\\banking_system\\c#arrays\\checkingaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|solutionrelative:c#arrays\\checkingaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|c:\\c#\\banking_system\\c#arrays\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|solutionrelative:c#arrays\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|c:\\c#\\banking_system\\c#arrays\\bankaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,16 +19,20 @@
       "RelativeMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|solutionrelative:c#arrays\\savingsaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|c:\\c#\\banking_system\\c#arrays\\checkingaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|solutionrelative:c#arrays\\checkingaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|c:\\c#\\banking_system\\c#arrays\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|solutionrelative:c#arrays\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|c:\\c#\\banking_system\\c#arrays\\iprintable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|solutionrelative:c#arrays\\iprintable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|c:\\c#\\banking_system\\c#arrays\\iauditble.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|solutionrelative:c#arrays\\iauditble.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|c:\\c#\\banking_system\\c#arrays\\iprintable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84AFE15C-5B4C-4D63-9AFB-432E935487A9}|C#Arrays\\BankingSystem.csproj|solutionrelative:c#arrays\\iprintable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,8 +42,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Bank.cs",
+              "DocumentMoniker": "C:\\C#\\Banking_System\\C#Arrays\\Bank.cs",
+              "RelativeDocumentMoniker": "C#Arrays\\Bank.cs",
+              "ToolTip": "C:\\C#\\Banking_System\\C#Arrays\\Bank.cs*",
+              "RelativeToolTip": "C#Arrays\\Bank.cs*",
+              "ViewState": "AgIAACIAAAAAAAAAAAAgwDoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-30T22:22:18.287Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -48,7 +65,7 @@
               "RelativeDocumentMoniker": "C#Arrays\\Program.cs",
               "ToolTip": "C:\\C#\\Banking_System\\C#Arrays\\Program.cs*",
               "RelativeToolTip": "C#Arrays\\Program.cs*",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAYwCsAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-29T10:17:25.415Z",
               "EditorCaption": ""
@@ -61,14 +78,27 @@
               "RelativeDocumentMoniker": "C#Arrays\\BankAccount.cs",
               "ToolTip": "C:\\C#\\Banking_System\\C#Arrays\\BankAccount.cs",
               "RelativeToolTip": "C#Arrays\\BankAccount.cs",
-              "ViewState": "AgIAADIAAAAAAAAAAAAUwBwAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAswAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-29T10:17:25.531Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
+              "Title": "SavingsAccount.cs",
+              "DocumentMoniker": "C:\\C#\\Banking_System\\C#Arrays\\SavingsAccount.cs",
+              "RelativeDocumentMoniker": "C#Arrays\\SavingsAccount.cs",
+              "ToolTip": "C:\\C#\\Banking_System\\C#Arrays\\SavingsAccount.cs",
+              "RelativeToolTip": "C#Arrays\\SavingsAccount.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-29T10:17:25.548Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "CheckingAccount.cs",
               "DocumentMoniker": "C:\\C#\\Banking_System\\C#Arrays\\CheckingAccount.cs",
               "RelativeDocumentMoniker": "C#Arrays\\CheckingAccount.cs",
@@ -81,19 +111,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SavingsAccount.cs",
-              "DocumentMoniker": "C:\\C#\\Banking_System\\C#Arrays\\SavingsAccount.cs",
-              "RelativeDocumentMoniker": "C#Arrays\\SavingsAccount.cs",
-              "ToolTip": "C:\\C#\\Banking_System\\C#Arrays\\SavingsAccount.cs",
-              "RelativeToolTip": "C#Arrays\\SavingsAccount.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAA3wAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-29T10:17:25.548Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 6,
               "Title": "IAuditble.cs",
               "DocumentMoniker": "C:\\C#\\Banking_System\\C#Arrays\\IAuditble.cs",
@@ -102,11 +119,12 @@
               "RelativeToolTip": "C#Arrays\\IAuditble.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-29T10:17:25.55Z"
+              "WhenOpened": "2026-10-29T10:17:25.55Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "IPrintable.cs",
               "DocumentMoniker": "C:\\C#\\Banking_System\\C#Arrays\\IPrintable.cs",
               "RelativeDocumentMoniker": "C#Arrays\\IPrintable.cs",
@@ -114,19 +132,21 @@
               "RelativeToolTip": "C#Arrays\\IPrintable.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-29T10:17:25.551Z"
+              "WhenOpened": "2026-10-29T10:17:25.551Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Employee.cs",
               "DocumentMoniker": "C:\\C#\\Banking_System\\C#Arrays\\Employee.cs",
               "RelativeDocumentMoniker": "C#Arrays\\Employee.cs",
               "ToolTip": "C:\\C#\\Banking_System\\C#Arrays\\Employee.cs",
               "RelativeToolTip": "C#Arrays\\Employee.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-29T10:17:25.553Z"
+              "WhenOpened": "2026-10-29T10:17:25.553Z",
+              "EditorCaption": ""
             }
           ]
         }

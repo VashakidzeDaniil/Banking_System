@@ -12,26 +12,28 @@
 
         public BankAccount(decimal startBalance, string accountNumber = null)
         {
+            if (startBalance < 0)
+            {
+                throw new ArgumentException("Созданный счет не может быть ниже нуля");
+            }
             totalAccounts++;
             this.accountNumber = accountNumber ?? $"RU-{totalAccounts:D4}";
             balance = startBalance;
+
         }
 
         public void Deposit(decimal amount)
         {
             if (amount <= 0)
-            {
                 throw new ArgumentException("Нельзя прибавить денег меньше или равное 0");
-            }
+
             balance += amount;
         }
         public bool Withdraw(decimal amount)
         {
             if (amount <= 0)
-            {
-                Console.WriteLine("Сумма должна быть больше нуля");
-                return false;
-            }
+                throw new ArgumentException("Сумма должна быть больше нуля");
+
             if (amount > balance)
             {
                 Console.WriteLine("Недостаточно средств, операция не выполнена");
