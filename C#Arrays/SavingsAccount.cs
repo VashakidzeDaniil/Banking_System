@@ -1,6 +1,6 @@
 ﻿namespace C_Arrays
 {
-    public class SavingsAccount: BankAccount , IAuditable
+    public class SavingsAccount : BankAccount, IAuditable
     {
         private readonly decimal interestRate;
         public SavingsAccount(decimal startBalance, decimal rate, string accountNumber = null)
@@ -13,7 +13,7 @@
         {
             balance += balance * interestRate;
         }
-         public override void PrintInfo()
+        public override void PrintInfo()
         {
             base.PrintInfo();
             Console.WriteLine($"Процентная ставка: {interestRate:P}");

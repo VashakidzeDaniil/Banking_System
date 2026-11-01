@@ -1,6 +1,6 @@
 ﻿namespace C_Arrays
 {
-    public class CheckingAccount : BankAccount , IAuditable
+    public class CheckingAccount : BankAccount, IAuditable
     {
         public CheckingAccount(decimal startBalance, string accountNumber = null) : base(startBalance, accountNumber) { }
 

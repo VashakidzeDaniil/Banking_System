@@ -1,4 +1,6 @@
-﻿namespace C_Arrays
+﻿using System.Text;
+
+namespace C_Arrays
 {
     class Program
     {
@@ -6,9 +8,11 @@
         {
             var bank = new Bank();
             bank.Add(new CheckingAccount(1000m));
-            bank.Add(new SavingsAccount(5000m,0.05m));
+            bank.Add(new SavingsAccount(5000m, 0.05m));
             bank.Add(new CheckingAccount(4000m));
             bank.Add(new SavingsAccount(999m, 0.05m));
+
+            Console.WriteLine(bank.BuildReport());
         }
 
         static public void PrintAuditInfo(IAuditable item)
@@ -38,5 +42,6 @@
                 Console.WriteLine("Счет не найден");
             }
         }
+
     }
 }

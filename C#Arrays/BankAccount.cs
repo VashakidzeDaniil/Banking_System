@@ -57,7 +57,7 @@
             //if (obj is not BankAccount) return false;  // или: if (!(obj is BankAccount))
             //var other = (BankAccount)obj;              // теперь приведение безопасно
             //return AccountNumber == other.AccountNumber;
-            
+
             if (obj is not BankAccount other)
                 return false;
 

@@ -42,21 +42,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Bank.cs",
-              "DocumentMoniker": "C:\\C#\\Banking_System\\C#Arrays\\Bank.cs",
-              "RelativeDocumentMoniker": "C#Arrays\\Bank.cs",
-              "ToolTip": "C:\\C#\\Banking_System\\C#Arrays\\Bank.cs*",
-              "RelativeToolTip": "C#Arrays\\Bank.cs*",
-              "ViewState": "AgIAACIAAAAAAAAAAAAgwDoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-30T22:22:18.287Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -65,10 +52,22 @@
               "RelativeDocumentMoniker": "C#Arrays\\Program.cs",
               "ToolTip": "C:\\C#\\Banking_System\\C#Arrays\\Program.cs*",
               "RelativeToolTip": "C#Arrays\\Program.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAA1wDUAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-29T10:17:25.415Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Bank.cs",
+              "DocumentMoniker": "C:\\C#\\Banking_System\\C#Arrays\\Bank.cs",
+              "RelativeDocumentMoniker": "C#Arrays\\Bank.cs",
+              "ToolTip": "C:\\C#\\Banking_System\\C#Arrays\\Bank.cs",
+              "RelativeToolTip": "C#Arrays\\Bank.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAA3wFEAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-30T22:22:18.287Z"
             },
             {
               "$type": "Document",
@@ -78,10 +77,9 @@
               "RelativeDocumentMoniker": "C#Arrays\\BankAccount.cs",
               "ToolTip": "C:\\C#\\Banking_System\\C#Arrays\\BankAccount.cs",
               "RelativeToolTip": "C#Arrays\\BankAccount.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAswAoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-29T10:17:25.531Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-29T10:17:25.531Z"
             },
             {
               "$type": "Document",
@@ -91,10 +89,9 @@
               "RelativeDocumentMoniker": "C#Arrays\\SavingsAccount.cs",
               "ToolTip": "C:\\C#\\Banking_System\\C#Arrays\\SavingsAccount.cs",
               "RelativeToolTip": "C#Arrays\\SavingsAccount.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-29T10:17:25.548Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-29T10:17:25.548Z"
             },
             {
               "$type": "Document",
@@ -106,8 +103,7 @@
               "RelativeToolTip": "C#Arrays\\CheckingAccount.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-29T10:17:25.534Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-29T10:17:25.534Z"
             },
             {
               "$type": "Document",
@@ -119,8 +115,7 @@
               "RelativeToolTip": "C#Arrays\\IAuditble.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-29T10:17:25.55Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-29T10:17:25.55Z"
             },
             {
               "$type": "Document",
@@ -132,8 +127,7 @@
               "RelativeToolTip": "C#Arrays\\IPrintable.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-29T10:17:25.551Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-29T10:17:25.551Z"
             },
             {
               "$type": "Document",
@@ -145,8 +139,7 @@
               "RelativeToolTip": "C#Arrays\\Employee.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-29T10:17:25.553Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-29T10:17:25.553Z"
             }
           ]
         }

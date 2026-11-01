@@ -1,4 +1,6 @@
-﻿namespace C_Arrays
+﻿using System.Text;
+
+namespace C_Arrays
 {
     public class Bank
     {
@@ -70,6 +72,18 @@
                 sumValues += account.Balance;
 
             return accounts.Count == 0 ? 0m : sumValues / accounts.Count;
+        }
+        public string BuildReport()
+        {
+            StringBuilder sb = new();
+            sb.AppendLine("===Отчет по банку ===");
+            foreach (var pair in accounts)
+            {
+                sb.AppendLine($"{pair.Key}: {pair.Value.Balance}");
+            }
+            sb.AppendLine($"Общий счет: {GetTotalBalance()}");
+
+            return sb.ToString();
         }
     }
 }
