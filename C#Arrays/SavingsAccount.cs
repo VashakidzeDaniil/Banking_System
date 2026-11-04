@@ -3,8 +3,7 @@
     public class SavingsAccount : BankAccount, IAuditable
     {
         private readonly decimal interestRate;
-        public SavingsAccount(decimal startBalance, decimal rate, string accountNumber = null)
-    : base(startBalance, accountNumber)
+        public SavingsAccount(decimal startBalance, decimal rate) : base(startBalance, AccountType.Savings)
         {
             interestRate = rate;
         }
@@ -18,14 +17,15 @@
             base.PrintInfo();
             Console.WriteLine($"Процентная ставка: {interestRate:P}");
         }
-
         public override void ApplyMonthlyUpdate()
         {
             AddInterest();
         }
+
         public string GetAuditInfo()
         {
             return $"Тип: сберегательный счёт, баланс: {balance}, процентная ставка {interestRate:P}";
         }
+
     }
 }

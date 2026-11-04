@@ -2,32 +2,36 @@
 {
     public abstract class BankAccount
     {
+        public AccountType Type { get; init; }
         protected decimal balance;
         private string accountNumber;
         private static int totalAccounts;
-
         public decimal Balance => balance;
         public string AccountNumber => accountNumber;
+        private const decimal LowBalanceThreshold = 100m;
+        private bool lowBalanceNotified;
 
-
-        public BankAccount(decimal startBalance, string accountNumber = null)
+        public BankAccount(decimal startBalance, AccountType type)
         {
             if (startBalance < 0)
             {
                 throw new ArgumentException("Созданный счет не может быть ниже нуля");
             }
+            Type = type;
             totalAccounts++;
-            this.accountNumber = accountNumber ?? $"RU-{totalAccounts:D4}";
+            accountNumber = $"RU-{totalAccounts:D4}";
             balance = startBalance;
 
         }
-
+        public delegate void BalanceChangedHandler(string accountNumber, decimal newBalance);
+        public event BalanceChangedHandler? BalanceChanged;
+        public event BalanceChangedHandler? LowBalance;
         public void Deposit(decimal amount)
         {
             if (amount <= 0)
                 throw new ArgumentException("Нельзя прибавить денег меньше или равное 0");
-
             balance += amount;
+            BalanceChanged?.Invoke(AccountNumber, balance);
         }
         public bool Withdraw(decimal amount)
         {
@@ -40,6 +44,17 @@
                 return false;
             }
             balance -= amount;
+
+            BalanceChanged?.Invoke(AccountNumber, balance);
+            if (balance <= 100m && !lowBalanceNotified)
+            {
+                LowBalance?.Invoke(AccountNumber, balance);
+                lowBalanceNotified = true;
+            }
+            if (balance > 100m)
+            {
+                lowBalanceNotified = false;
+            }
             return true;
         }
         public static int GetTotalAccountsCount()
@@ -50,7 +65,6 @@
         {
             Console.WriteLine($"Номер Аккаунта:{accountNumber}\nБаланс:{balance}");
         }
-
         public override bool Equals(object obj)
         {
             //if (obj == null) return false;

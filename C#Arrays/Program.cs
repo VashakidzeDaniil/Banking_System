@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace C_Arrays
+﻿namespace C_Arrays
 {
     class Program
     {
@@ -11,8 +9,12 @@ namespace C_Arrays
             bank.Add(new SavingsAccount(5000m, 0.05m));
             bank.Add(new CheckingAccount(4000m));
             bank.Add(new SavingsAccount(999m, 0.05m));
+            bank.Add(new SavingsAccount(999m, 0.05m));
 
-            Console.WriteLine(bank.BuildReport());
+            bank.ProcessAccounts(a => a.BalanceChanged += PrintBalanceChange);
+            bank.ProcessAccounts(a => a.LowBalance += PrintLowBalanceChange);
+            bank.ProcessAccounts(a => a.Withdraw(950m));
+
         }
 
         static public void PrintAuditInfo(IAuditable item)
@@ -42,6 +44,13 @@ namespace C_Arrays
                 Console.WriteLine("Счет не найден");
             }
         }
-
+        static void PrintBalanceChange(string number, decimal newBalance)
+        {
+            Console.WriteLine($"Счёт {number}: {newBalance}");
+        }
+        static void PrintLowBalanceChange(string number, decimal newBalance)
+        {
+            Console.WriteLine($"На счете {number} осталось мало средств: {newBalance}");
+        }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class CheckingAccount : BankAccount, IAuditable
     {
-        public CheckingAccount(decimal startBalance, string accountNumber = null) : base(startBalance, accountNumber) { }
+        public CheckingAccount(decimal startBalance) : base(startBalance, AccountType.Checking) { }
 
         public override void ApplyMonthlyUpdate()
         {
