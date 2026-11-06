@@ -111,7 +111,7 @@ namespace C_Arrays
         }
         public decimal GetTotalBalanceByType(AccountType type)
         {
-            return SumBy( a => a.Type == type ? a.Balance : 0m);
+            return SumBy(a => a.Type == type ? a.Balance : 0m);
         }
         public BankAccount GetFirstPoorAccount(decimal threshold)
         {
@@ -176,7 +176,7 @@ namespace C_Arrays
         {
             if (accounts.Values.Count <= 0) return 0m;
             return Math.Round(accounts.Values.Where(a => a.Type == AccountType.Checking).
-                                              Average(a => a.Balance));                       
+                                              Average(a => a.Balance));
         }
         public Dictionary<AccountType, int> GetTotalCountByType()
         {

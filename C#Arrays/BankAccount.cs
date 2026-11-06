@@ -1,6 +1,6 @@
 ﻿namespace C_Arrays
 {
-    public abstract class BankAccount
+    public abstract class BankAccount : IComparable<BankAccount>
     {
         public AccountType Type { get; init; }
         protected decimal balance;
@@ -46,12 +46,12 @@
             balance -= amount;
 
             BalanceChanged?.Invoke(AccountNumber, balance);
-            if (balance <= 100m && !lowBalanceNotified)
+            if (balance <= LowBalanceThreshold && !lowBalanceNotified)
             {
                 LowBalance?.Invoke(AccountNumber, balance);
                 lowBalanceNotified = true;
             }
-            if (balance > 100m)
+            if (balance > LowBalanceThreshold)
             {
                 lowBalanceNotified = false;
             }
@@ -80,6 +80,11 @@
         public override int GetHashCode()
         {
             return accountNumber.GetHashCode();
+        }
+        public int CompareTo(BankAccount? other)
+        {
+            if (other is null) return 1;
+            return balance.CompareTo(other.balance);
         }
         public abstract void ApplyMonthlyUpdate();
     }
