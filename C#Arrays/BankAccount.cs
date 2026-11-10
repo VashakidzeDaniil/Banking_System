@@ -5,13 +5,13 @@ namespace C_Arrays
     public abstract class BankAccount : IComparable<BankAccount>, IAuditable, IPrintable
     {
         public AccountType Type { get; init; }
-        protected decimal balance;
         private string accountNumber;
         private static int totalAccounts;
-        public decimal Balance => balance;
+        public decimal Balance { get; protected set; }
         public string AccountNumber => accountNumber;
         private const decimal LowBalanceThreshold = 100m;
         private bool lowBalanceNotified;
+        public bool IsEmpty => Balance == 0;
 
         static BankAccount()
         {
@@ -24,7 +24,7 @@ namespace C_Arrays
             Type = type;
             totalAccounts++;
             accountNumber = $"RU-{totalAccounts:D4}";
-            balance = startBalance;
+            Balance = startBalance;
         }
         protected BankAccount(string accountNumber, decimal startBalance, AccountType type)
         {
@@ -32,7 +32,7 @@ namespace C_Arrays
                 throw new ArgumentException("Счёт не может быть ниже нуля");
             Type = type;
             this.accountNumber = accountNumber;
-            balance = startBalance;
+            Balance = startBalance;
         }
         public delegate void BalanceChangedHandler(string accountNumber, decimal newBalance);
         public event BalanceChangedHandler? BalanceChanged;
@@ -41,28 +41,28 @@ namespace C_Arrays
         {
             if (amount <= 0)
                 throw new ArgumentException("Нельзя прибавить денег меньше или равное 0");
-            balance += amount;
-            BalanceChanged?.Invoke(AccountNumber, balance);
+            Balance += amount;
+            BalanceChanged?.Invoke(AccountNumber, Balance);
         }
         public bool Withdraw(decimal amount)
         {
             if (amount <= 0)
                 throw new ArgumentException("Сумма должна быть больше нуля");
 
-            if (amount > balance)
+            if (amount > Balance)
             {
                 Console.WriteLine("Недостаточно средств, операция не выполнена");
                 return false;
             }
-            balance -= amount;
+            Balance -= amount;
 
-            BalanceChanged?.Invoke(AccountNumber, balance);
-            if (balance <= LowBalanceThreshold && !lowBalanceNotified)
+            BalanceChanged?.Invoke(AccountNumber, Balance);
+            if (Balance <= LowBalanceThreshold && !lowBalanceNotified)
             {
-                LowBalance?.Invoke(AccountNumber, balance);
+                LowBalance?.Invoke(AccountNumber, Balance);
                 lowBalanceNotified = true;
             }
-            if (balance > LowBalanceThreshold)
+            if (Balance > LowBalanceThreshold)
             {
                 lowBalanceNotified = false;
             }
@@ -74,7 +74,7 @@ namespace C_Arrays
         }
         public virtual void PrintInfo()
         {
-            Console.WriteLine($"Номер Аккаунта:{accountNumber}\nБаланс:{balance}");
+            Console.WriteLine($"Номер Аккаунта:{accountNumber}\nБаланс:{Balance}");
         }
         public override bool Equals(object obj)
         {
@@ -95,10 +95,10 @@ namespace C_Arrays
         public int CompareTo(BankAccount? other)
         {
             if (other is null) return 1;
-            return balance.CompareTo(other.balance);
+            return Balance.CompareTo(other.Balance);
         }
         public virtual string ToSaveLine() =>
-            $"{AccountNumber};{Type};{balance.ToString(CultureInfo.InvariantCulture)}";
+            $"{AccountNumber};{Type};{Balance.ToString(CultureInfo.InvariantCulture)}";
         public static void SyncCounter(int maxValue)
         {
             if (maxValue > totalAccounts)

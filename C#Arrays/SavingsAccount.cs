@@ -4,26 +4,36 @@ namespace C_Arrays
 {
     public class SavingsAccount : BankAccount, IAuditable, IPrintable
     {
-        private readonly decimal interestRate;
-        public decimal GetRate() => interestRate;
+        private decimal interestRate;
+
+        public decimal InterestRate
+        {
+            get => interestRate;
+            set
+            {
+                if (value < 0 || value > 1)
+                    throw new ArgumentException("Ставка должна быть от 0 до 1");
+                interestRate = value;
+            }
+        }
         public SavingsAccount(decimal startBalance, decimal rate) : base(startBalance, AccountType.Savings)
         {
-            interestRate = rate;
+            InterestRate = rate;
         }
         public SavingsAccount(string accountNumber, decimal startBalance, decimal rate)
             : base(accountNumber, startBalance, AccountType.Savings)
         {
-            interestRate = rate;
+            InterestRate = rate;
         }
 
         public void AddInterest()
         {
-            balance += balance * interestRate;
+            Balance += Balance * InterestRate;
         }
         public override void PrintInfo()
         {
             base.PrintInfo();
-            Console.WriteLine($"Процентная ставка: {interestRate:P}");
+            Console.WriteLine($"Процентная ставка: {InterestRate:P}");
         }
         public override void ApplyMonthlyUpdate()
         {
@@ -31,13 +41,13 @@ namespace C_Arrays
         }
         public override string GetAuditInfo()
         {
-            return $"Тип: сберегательный счёт, баланс: {balance}, процентная ставка {interestRate:P}";
+            return $"Тип: сберегательный счёт, баланс: {Balance}, процентная ставка {InterestRate:P}";
         }
         public override string ToSaveLine() =>
-            $"{base.ToSaveLine()};{interestRate.ToString(CultureInfo.InvariantCulture)}";
+            $"{base.ToSaveLine()};{InterestRate.ToString(CultureInfo.InvariantCulture)}";
         public override string GetPrintableInfo()
         {
-            return $"Тип: сберегательный счёт, баланс: {balance}, процентная ставка {interestRate:P}";
+            return $"Тип: сберегательный счёт, баланс: {Balance}, процентная ставка {InterestRate:P}";
         }
     }
 }

@@ -12,11 +12,11 @@
         }
         public override string GetAuditInfo()
         {
-            return $"Тип: расчетный счёт, баланс: {balance}";
+            return $"Тип: расчетный счёт, баланс: {Balance}";
         }
         public override string GetPrintableInfo()
         {
-            return $"Тип: расчетный счёт, баланс: {balance}";
+            return $"Тип: расчетный счёт, баланс: {Balance}";
         }
     }
 }
