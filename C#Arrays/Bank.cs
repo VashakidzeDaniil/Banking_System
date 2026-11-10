@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 
 namespace C_Arrays
 {
@@ -12,7 +13,7 @@ namespace C_Arrays
 
             accounts[account.AccountNumber] = account;
         }
-        public BankAccount FindAccount(string accountNumber)
+        public BankAccount? FindAccount(string accountNumber)
         {
             accounts.TryGetValue(accountNumber, out BankAccount found);
             return found;
@@ -34,7 +35,7 @@ namespace C_Arrays
         }
         public decimal GetTotalBalance()
         {
-            return SumBy(a => a.Balance);
+            return accounts.Values.Sum(a => a.Balance);
         }
         public void TestTransfer(string from, string to, decimal amount)
         {
@@ -59,12 +60,16 @@ namespace C_Arrays
         }
         public string BuildReport()
         {
-            StringBuilder sb = new();
-            sb.AppendLine("===Отчет по банку ===");
-            foreach (var pair in accounts)
+
+            var accountLines = accounts.Select(pair =>
             {
-                sb.AppendLine($"{pair.Key}: {pair.Value.Balance}");
-            }
+                return $"{pair.Key}: {pair.Value.Balance}";
+            });
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("==Отчет по банку==");
+            sb.Append(string.Join(Environment.NewLine, accountLines));
+            sb.AppendLine();
             sb.AppendLine($"Общий счет: {GetTotalBalance()}");
 
             return sb.ToString();
@@ -93,34 +98,34 @@ namespace C_Arrays
                 return result;
             return null;
         }
-        public BankAccount GetRichestAccount()
+        public BankAccount? GetRichestAccount()
         {
             return accounts.Values.OrderByDescending(a => a.Balance).FirstOrDefault();
         }
-        public List<string> GetAccountNumbersSorted()
+        public IEnumerable<string> GetAccountNumbersSorted()
         {
-            return accounts.Values.Select(a => a.AccountNumber).OrderBy(n => n).ToList();
+            return accounts.Values.Select(a => a.AccountNumber).OrderBy(n => n);
         }
         public bool HasAccountAbove(decimal threshold)
         {
             return accounts.Values.Any(a => a.Balance > threshold);
         }
-        public List<BankAccount> GetAccountsByType(AccountType type)
+        public IEnumerable<BankAccount> GetAccountsByType(AccountType type)
         {
-            return accounts.Values.Where(a => a.Type == type).ToList();
+            return accounts.Values.Where(a => a.Type == type);
         }
         public decimal GetTotalBalanceByType(AccountType type)
         {
-            return SumBy(a => a.Type == type ? a.Balance : 0m);
+            return (accounts.Values.Where(a => a.Type == type).Sum(a => a.Balance));
         }
-        public BankAccount GetFirstPoorAccount(decimal threshold)
+        public BankAccount? GetFirstPoorAccount(decimal threshold)
         {
             return FindAccountBy(a => a.Balance < threshold);
         }
-        public List<decimal> GetBalancesDescending()
+        public IEnumerable<decimal> GetBalancesDescending()
         {
             return accounts.Values.OrderByDescending(a => a.Balance)
-                                  .Select(a => a.Balance).ToList();
+                                  .Select(a => a.Balance);
         }
         public List<decimal> GetTopAccounts(int n)
         {
@@ -162,13 +167,13 @@ namespace C_Arrays
                                    OrderByDescending(a => a.Balance).
                                    Select(a => a.AccountNumber).ToList();
         }
-        public AccountType GetCommonAccount()
+        public AccountType? GetCommonAccount()
         {
-            return accounts.Values.GroupBy(a => a.Type).
-                                   OrderByDescending(g => g.Count()).
-                                   First().Key;
+            var group = accounts.Values.GroupBy(a => a.Type).
+                                   OrderByDescending(g => g.Count()).FirstOrDefault();
+            return group?.Key;
         }
-        public bool HasAccountWithRange(decimal min, decimal max)
+        public bool HasAccountOutRange(decimal min, decimal max)
         {
             return accounts.Values.Any(a => a.Balance < min || a.Balance > max);
         }
@@ -195,10 +200,54 @@ namespace C_Arrays
         {
             return accounts.Values.FirstOrDefault(predicate);
         }
-        public decimal SumBy(Func<BankAccount, decimal> selector)
+        public void SaveAccounts(string path)
         {
-            return accounts.Values.Sum(selector);
+            File.WriteAllLines(path, accounts.Values.Select(a => a.ToSaveLine()));
         }
+        public void LoadAccounts(string path)
+        {
+            string[] lines = File.ReadAllLines(path);
+            List<string> loadedNumpers = new List<string>();
 
+            foreach (string line in File.ReadAllLines(path))
+            {
+                string[] parts = line.Split(';');
+                if (parts.Length < 3) continue;
+
+                loadedNumpers.Add(parts[0]);
+
+                AccountType? type = ParseAccountType(parts[1]);
+                if (type == null) continue;
+
+                decimal balance = decimal.Parse(parts[2], CultureInfo.InvariantCulture);
+
+                BankAccount account;
+                switch (type.Value)
+                {
+                    case AccountType.Checking:
+                        account = new CheckingAccount(parts[0], balance);
+                        break;
+                    case AccountType.Savings:
+                        decimal rate = decimal.Parse(parts[3], CultureInfo.InvariantCulture);
+                        account = new SavingsAccount(parts[0], balance, rate);
+                        break;
+                    default:
+                        continue;
+                }
+                Add(account);
+            }
+            if (loadedNumpers.Any())
+            {
+                BankAccount.SyncCounter(loadedNumpers.Select(n => int.Parse(n.Substring(3))).Max());
+            }
+        }
+        public void SaveReport(string path)
+        {
+            File.WriteAllText(path, BuildReport());
+        }
+        public HashSet<AccountType> GetDistinctAccountTypes()
+        {
+            return accounts.Values.Select(a => a.Type).ToHashSet();
+        }
     }
 }

@@ -1,0 +1,5 @@
+RU-0001;Checking;1000
+RU-0002;Savings;5000;0.05
+RU-0003;Checking;4000
+RU-0004;Savings;999;0.05
+RU-0005;Savings;999;0.05
