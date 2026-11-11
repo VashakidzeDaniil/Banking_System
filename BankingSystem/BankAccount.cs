@@ -54,7 +54,6 @@ namespace BankingSystem
 
             if (amount > Balance)
             {
-                Console.WriteLine("Недостаточно средств, операция не выполнена");
                 return false;
             }
             Balance -= amount;

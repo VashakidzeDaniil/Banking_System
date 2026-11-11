@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\C#\\Banking_System\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|c:\\c#\\banking_system\\bankingsystem\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|solutionrelative:bankingsystem\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|c:\\c#\\banking_system\\bankingsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|solutionrelative:bankingsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|c:\\c#\\banking_system\\bankingsystem\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|solutionrelative:bankingsystem\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|c:\\c#\\banking_system\\bankingsystem\\bankaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|solutionrelative:bankingsystem\\bankaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,30 +22,43 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "BankAccount.cs",
+              "DocumentMoniker": "C:\\C#\\Banking_System\\BankingSystem\\BankAccount.cs",
+              "RelativeDocumentMoniker": "BankingSystem\\BankAccount.cs",
+              "ToolTip": "C:\\C#\\Banking_System\\BankingSystem\\BankAccount.cs",
+              "RelativeToolTip": "BankingSystem\\BankAccount.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADcAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-11T21:00:38.555Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\C#\\Banking_System\\BankingSystem\\Program.cs",
               "RelativeDocumentMoniker": "BankingSystem\\Program.cs",
               "ToolTip": "C:\\C#\\Banking_System\\BankingSystem\\Program.cs",
               "RelativeToolTip": "BankingSystem\\Program.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAxwBQAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-11-11T20:44:27.434Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Bank.cs",
               "DocumentMoniker": "C:\\C#\\Banking_System\\BankingSystem\\Bank.cs",
               "RelativeDocumentMoniker": "BankingSystem\\Bank.cs",
               "ToolTip": "C:\\C#\\Banking_System\\BankingSystem\\Bank.cs",
               "RelativeToolTip": "BankingSystem\\Bank.cs",
-              "ViewState": "AgIAAPMAAAAAAAAAAAAEwAUBAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAswIEAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-11-11T20:44:22.596Z",
               "EditorCaption": ""

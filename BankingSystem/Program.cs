@@ -11,10 +11,6 @@
             bank.Add(new SavingsAccount(999m, 0.05m));
             bank.Add(new SavingsAccount(999m, 0.05m));
 
-            Console.WriteLine("Start");
-            await Task.Delay(2000);
-            Console.WriteLine("End 2s");
-
             await bank.SaveToJsonAsync("bank.json");
 
             var restored = await bank.LoadFromJsonAsync("bank.json");

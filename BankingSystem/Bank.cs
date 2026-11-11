@@ -125,7 +125,7 @@ namespace BankingSystem
         {
             return FindAccountBy(a => a.Balance < threshold);
         }
-        public IEnumerable<BankAccount> GetBalancesDescending()
+        public IEnumerable<BankAccount> GetAccountsDescendingByBalance()
         {
             return accounts.Values.OrderByDescending(a => a.Balance);
         }
@@ -208,7 +208,6 @@ namespace BankingSystem
         }
         public void LoadAccounts(string path)
         {
-            string[] lines = File.ReadAllLines(path);
             List<string> loadedNumpers = new List<string>();
 
             foreach (string line in File.ReadAllLines(path))
