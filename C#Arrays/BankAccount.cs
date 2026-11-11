@@ -1,7 +1,10 @@
 ﻿using System.Globalization;
+using System.Text.Json.Serialization;
 
 namespace C_Arrays
 {
+    [JsonDerivedType(typeof(CheckingAccount), "checking")]
+    [JsonDerivedType(typeof(SavingsAccount), "savings")]
     public abstract class BankAccount : IComparable<BankAccount>, IAuditable, IPrintable
     {
         public AccountType Type { get; init; }

@@ -1,10 +1,14 @@
-﻿namespace C_Arrays
+﻿using System.Text.Json.Serialization;
+
+namespace C_Arrays
 {
     public class CheckingAccount : BankAccount, IAuditable, IPrintable
     {
-        public CheckingAccount(decimal startBalance) : base(startBalance, AccountType.Checking) { }
-        public CheckingAccount(string accountNumber, decimal startBalance)
-    : base(accountNumber, startBalance, AccountType.Checking) { }
+        public CheckingAccount(decimal balance) : base(balance, AccountType.Checking) { }
+        
+        [JsonConstructor]
+        public CheckingAccount(string accountNumber, decimal balance)
+    : base(accountNumber, balance, AccountType.Checking) { }
 
         public override void ApplyMonthlyUpdate()
         {

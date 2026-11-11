@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text.Json.Serialization;
 
 namespace C_Arrays
 {
@@ -12,18 +13,20 @@ namespace C_Arrays
             set
             {
                 if (value < 0 || value > 1)
-                    throw new ArgumentException("Ставка должна быть от 0 до 1");
+                    throw new ArgumentOutOfRangeException(nameof(value), value, "Ставка должна быть от 0 до 1");
                 interestRate = value;
             }
         }
-        public SavingsAccount(decimal startBalance, decimal rate) : base(startBalance, AccountType.Savings)
+        public SavingsAccount(decimal balance, decimal rate) : base(balance, AccountType.Savings)
         {
             InterestRate = rate;
         }
-        public SavingsAccount(string accountNumber, decimal startBalance, decimal rate)
-            : base(accountNumber, startBalance, AccountType.Savings)
+
+        [JsonConstructor]
+        public SavingsAccount(string accountNumber, decimal balance, decimal interestRate)
+            : base(accountNumber, balance, AccountType.Savings)
         {
-            InterestRate = rate;
+            InterestRate = interestRate;
         }
 
         public void AddInterest()

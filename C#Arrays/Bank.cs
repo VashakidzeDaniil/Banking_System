@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Text;
+using System.Text.Json;
 
 namespace C_Arrays
 {
@@ -22,9 +23,10 @@ namespace C_Arrays
         {
             if (amount <= 0)
                 throw new ArgumentException("Сумма перевода должна быть положительной");
-
-            if (!accounts.TryGetValue(from, out BankAccount withdrawAccount)) return false;
-            if (!accounts.TryGetValue(to, out BankAccount depositAccount)) return false;
+            if (!accounts.TryGetValue(from, out BankAccount? withdrawAccount))
+                throw new AccountNotFoundException(from);
+            if (!accounts.TryGetValue(to, out BankAccount? depositAccount))
+                throw new AccountNotFoundException(to);
 
             if (withdrawAccount.Withdraw(amount))
             {
@@ -122,10 +124,9 @@ namespace C_Arrays
         {
             return FindAccountBy(a => a.Balance < threshold);
         }
-        public IEnumerable<decimal> GetBalancesDescending()
+        public IEnumerable<BankAccount> GetBalancesDescending()
         {
-            return accounts.Values.OrderByDescending(a => a.Balance)
-                                  .Select(a => a.Balance);
+            return accounts.Values.OrderByDescending(a => a.Balance);
         }
         public List<decimal> GetTopAccounts(int n)
         {
@@ -248,6 +249,17 @@ namespace C_Arrays
         public HashSet<AccountType> GetDistinctAccountTypes()
         {
             return accounts.Values.Select(a => a.Type).ToHashSet();
+        }
+        public void SaveToJson(string path)
+        {
+            string json = JsonSerializer.Serialize(accounts);
+            File.WriteAllText(path, json);
+        }
+        public Dictionary<string, BankAccount>? LoadFromJson(string path)
+        {
+            if (!File.Exists(path)) return null;
+            string read = File.ReadAllText(path);
+            return JsonSerializer.Deserialize<Dictionary<string, BankAccount>>(read);
         }
     }
 }
