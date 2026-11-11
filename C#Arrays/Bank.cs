@@ -7,6 +7,7 @@ namespace C_Arrays
     public class Bank
     {
         private Dictionary<string, BankAccount> accounts = new();
+        private string BuildJson() => JsonSerializer.Serialize(accounts);
         public void Add(BankAccount account)
         {
             if (accounts.ContainsKey(account.AccountNumber))
@@ -250,16 +251,15 @@ namespace C_Arrays
         {
             return accounts.Values.Select(a => a.Type).ToHashSet();
         }
-        public void SaveToJson(string path)
-        {
-            string json = JsonSerializer.Serialize(accounts);
-            File.WriteAllText(path, json);
-        }
-        public Dictionary<string, BankAccount>? LoadFromJson(string path)
+        public async Task<Dictionary<string, BankAccount>?> LoadFromJsonAsync(string path)
         {
             if (!File.Exists(path)) return null;
-            string read = File.ReadAllText(path);
-            return JsonSerializer.Deserialize<Dictionary<string, BankAccount>>(read);
+            string json = await File.ReadAllTextAsync(path);
+            return JsonSerializer.Deserialize<Dictionary<string, BankAccount>>(json);
+        }
+        public async Task SaveToJsonAsync(string path)
+        {
+            await File.WriteAllTextAsync(path, BuildJson());
         }
     }
 }

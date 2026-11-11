@@ -4,7 +4,7 @@ namespace C_Arrays
 {
     class Program
     {
-        static void Main()
+        static async Task Main()
         {
             var bank = new Bank();
             bank.Add(new CheckingAccount(1000m));
@@ -13,19 +13,16 @@ namespace C_Arrays
             bank.Add(new SavingsAccount(999m, 0.05m));
             bank.Add(new SavingsAccount(999m, 0.05m));
 
-            var request = new TransferRequest("RU-0001", "RU-0002", 100m);
-            string json = JsonSerializer.Serialize(request);
-            Console.WriteLine(json);
+            Console.WriteLine("Start");
+            await Task.Delay(2000);
+            Console.WriteLine("End 2s");
 
-            var copy = JsonSerializer.Deserialize<TransferRequest>(json);
-            Console.WriteLine(copy == request);
-
-            bank.SaveToJson("bank.json");
-            var restored = bank.LoadFromJson("bank.json");
+            var restored = await bank.LoadFromJsonAsync("bank.json");
             if (restored != null)
                 foreach (var pair in restored)
                     Console.WriteLine($"{pair.Key}: {pair.Value}");
-            bank.TestTransfer("RU-0001", "RU-0002", 100m);
+
+            await bank.SaveToJsonAsync("bank.json");
         }
 
         static public void PrintAuditInfo(IAuditable item)
