@@ -7,7 +7,11 @@ namespace BankingSystem
     public class Bank
     {
         private Dictionary<string, BankAccount> accounts = new();
-        private string BuildJson() => JsonSerializer.Serialize(accounts);
+        private static readonly JsonSerializerOptions JsonOpts = new()
+        {
+            WriteIndented = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        };
         public void Add(BankAccount account)
         {
             if (accounts.ContainsKey(account.AccountNumber))
@@ -46,6 +50,10 @@ namespace BankingSystem
             {
                 bool ok = Transfer(from, to, amount);
                 Console.WriteLine(ok ? "Перевод выполнен" : "Перевод не выполнен");
+            }
+            catch (BankException ex)
+            {
+                Console.WriteLine($"TestTransfer: перехватил банковскую ошибку — {ex.Message}");
             }
             catch (ArgumentException ex)
             {
@@ -171,8 +179,9 @@ namespace BankingSystem
         }
         public AccountType? GetCommonAccount()
         {
-            var group = accounts.Values.GroupBy(a => a.Type).
-                                   OrderByDescending(g => g.Count()).FirstOrDefault();
+            var group = accounts.Values.GroupBy(a => a.Type)
+                                       .OrderByDescending(g => g.Count())
+                                       .FirstOrDefault();
             return group?.Key;
         }
         public bool HasAccountOutRange(decimal min, decimal max)
@@ -181,7 +190,7 @@ namespace BankingSystem
         }
         public decimal GetRoundAverageCheckingBalance()
         {
-            if (accounts.Values.Count <= 0) return 0m;
+            if (!accounts.Values.Any(a => a.Type == AccountType.Checking)) return 0m;
             return Math.Round(accounts.Values.Where(a => a.Type == AccountType.Checking).
                                               Average(a => a.Balance));
         }
@@ -229,6 +238,7 @@ namespace BankingSystem
                         account = new CheckingAccount(parts[0], balance);
                         break;
                     case AccountType.Savings:
+                        if (parts.Length < 4) continue;
                         decimal rate = decimal.Parse(parts[3], CultureInfo.InvariantCulture);
                         account = new SavingsAccount(parts[0], balance, rate);
                         break;
@@ -237,10 +247,7 @@ namespace BankingSystem
                 }
                 Add(account);
             }
-            if (loadedNumpers.Any())
-            {
-                BankAccount.SyncCounter(loadedNumpers.Select(n => int.Parse(n.Substring(3))).Max());
-            }
+            SyncCounterFromNumbers(loadedNumpers);
         }
         public void SaveReport(string path)
         {
@@ -250,15 +257,118 @@ namespace BankingSystem
         {
             return accounts.Values.Select(a => a.Type).ToHashSet();
         }
-        public async Task<Dictionary<string, BankAccount>?> LoadFromJsonAsync(string path)
+        public async Task<bool> LoadFromJsonAsync(string path)
         {
-            if (!File.Exists(path)) return null;
+            if (!File.Exists(path)) return false;
             string json = await File.ReadAllTextAsync(path);
-            return JsonSerializer.Deserialize<Dictionary<string, BankAccount>>(json);
+            Dictionary<string, BankAccount>? loaded = null;
+            try
+            {
+                loaded = JsonSerializer.Deserialize<Dictionary<string, BankAccount>>(json, JsonOpts);
+            }
+            catch (JsonException js)
+            {
+                Console.WriteLine($"Ошибка в Десериализации — {js.Message}");
+                return false;
+            }
+            if (loaded == null) return false;
+
+            accounts.Clear();
+            foreach (var pair in loaded)
+            {
+                Add(pair.Value);
+            }
+            SyncCounterFromNumbers(loaded.Keys);
+
+            return true;
         }
         public async Task SaveToJsonAsync(string path)
         {
-            await File.WriteAllTextAsync(path, BuildJson());
+            await File.WriteAllTextAsync(path, JsonSerializer.Serialize(accounts, JsonOpts));
+        }
+        private static void SyncCounterFromNumbers(IEnumerable<string> numbers)
+        {
+            if (numbers.Any())
+            {
+                BankAccount.SyncCounter(numbers.Where(n => n.Length > 3)
+                                                     .Select(n => int.TryParse(n.Substring(3), out int v) ? v : -1)
+                                                     .Where(v => v >= 0)
+                                                     .DefaultIfEmpty(0)
+                                                     .Max());
+            }
+        }
+        public decimal GetAverageBalanceOfType(AccountType type)
+        {
+            if (!accounts.Values.Any(a => a.Type == type)) return 0m;
+            return accounts.Values.Where(a => a.Type == type)
+                                  .Average(a => a.Balance);
+        }
+        public bool AnyAccountWithBalanceBelow(decimal threshold)
+        {
+            return accounts.Values.Any(a => a.Balance < threshold);
+        }
+        public decimal GetMaxBalanceOfType(AccountType type)
+        {
+            if (!accounts.Values.Any(a => a.Type == type)) return 0m;
+            return accounts.Values.Where(a => a.Type == type).Max(a => a.Balance);
+        }
+        /// <summary>
+        /// Все счета указанного типа выше порога. На пустом наборе возвращает true
+        /// (стандартная семантика LINQ All — vacuous truth).
+        /// </summary>
+        public bool AllAccountsOfTypeAbove(AccountType type, decimal threshold)
+        {
+            return accounts.Values.Where(a => a.Type == type)
+                                  .All(a => a.Balance > threshold);
+        }
+        public decimal GetMinBalanceOfType(AccountType type)
+        {
+            if (!accounts.Values.Any(a => a.Type == type)) return 0m;
+            return accounts.Values.Where(a => a.Type == type)
+                                  .Min(a => a.Balance);
+        }
+        public BankAccount? GetRichestOfType(AccountType type)
+        {
+            return accounts.Values.Where(a => a.Type == type)
+                                  .MaxBy(a => a.Balance);
+        }
+        public Dictionary<AccountType, decimal> GetAverageByType()
+        {
+            return accounts.Values.GroupBy(a => a.Type)
+                                  .ToDictionary(g => g.Key,
+                                                g => g.Average(a => a.Balance));
+        }
+        public Dictionary<AccountType, List<string>> GetNumbersByTypeAbove(decimal threshold)
+        {
+            return accounts.Values.Where(a => a.Balance > threshold)
+                           .GroupBy(a => a.Type)
+                           .ToDictionary(g => g.Key, g => g.Select(a => a.AccountNumber).ToList());
+        }
+        public decimal GetTotalBalanceOfTypes(IEnumerable<AccountType> types)
+        {
+            return accounts.Values.Where(a => types.Contains(a.Type)).Sum(a => a.Balance);
+        }
+        public List<BankAccount> GetTopRichAccounts(int n)
+        {
+            return accounts.Values.OrderByDescending(a => a.Balance).Take(n).ToList();
+        }
+        public Dictionary<AccountType, decimal> GetTotalBalanceByTypeAbove(decimal threshold)
+        {
+            return accounts.Values.Where(a => a.Balance > threshold)
+                                  .GroupBy(g => g.Type)
+                                  .ToDictionary(g => g.Key,
+                                                g => g.Sum(a => a.Balance));
+        }
+        public List<string> GetNumbersAboveSorted(decimal threshold)
+        {
+            return accounts.Values.Where(a => a.Balance > threshold)
+                                  .OrderByDescending(a => a.Balance)
+                                  .Select(a => a.AccountNumber)
+                                  .ToList();
+        }
+        public bool AnyAccountAboveInType(AccountType type, decimal threshold)
+        {
+            return accounts.Values.Any(a => a.Type == type && a.Balance > threshold);
         }
     }
 }

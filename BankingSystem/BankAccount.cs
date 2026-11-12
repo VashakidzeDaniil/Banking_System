@@ -111,5 +111,4 @@ namespace BankingSystem
         public abstract string GetPrintableInfo();
         public override string ToString() => GetAuditInfo();
     }
-
 }

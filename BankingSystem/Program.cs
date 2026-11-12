@@ -7,27 +7,14 @@
             var bank = new Bank();
             bank.Add(new CheckingAccount(1000m));
             bank.Add(new SavingsAccount(5000m, 0.05m));
-            bank.Add(new CheckingAccount(4000m));
-            bank.Add(new SavingsAccount(999m, 0.05m));
-            bank.Add(new SavingsAccount(999m, 0.05m));
-
             await bank.SaveToJsonAsync("bank.json");
 
-            var restored = await bank.LoadFromJsonAsync("bank.json");
-            if (restored != null)
-            {
-                var restoredBank = new Bank();
-                foreach (var pair in restored)
-                {
-                    Console.WriteLine($"{pair.Key}: {pair.Value}");
-                    restoredBank.Add(pair.Value);
-                }
-                restoredBank.TestTransfer("RU-0001", "RU-0002", 100m);
-            }
-            else
-            {
-                Console.WriteLine("Файл не найден — банк не восстановлен");
-            }
+            bool ok = await bank.LoadFromJsonAsync("bank.json");
+            Console.WriteLine($"Загружено: {ok}");
+            Console.WriteLine(bank.BuildReport());
+
+            bank.Add(new CheckingAccount(100m));
+            Console.WriteLine(bank.BuildReport());
         }
     }
 }
