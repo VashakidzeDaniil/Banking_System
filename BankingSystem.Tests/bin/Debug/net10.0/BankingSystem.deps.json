@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "BankingSystem/1.0.0": {
+        "dependencies": {
+          "Microsoft.ApplicationInsights.Agent.Intercept": "2.4.0"
+        },
+        "runtime": {
+          "BankingSystem.dll": {}
+        }
+      },
+      "Microsoft.ApplicationInsights.Agent.Intercept/2.4.0": {
+        "runtime": {
+          "lib/net45/Microsoft.AI.Agent.Intercept.dll": {
+            "assemblyVersion": "2.4.0.0",
+            "fileVersion": "2.4.0.40027"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BankingSystem/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.ApplicationInsights.Agent.Intercept/2.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WuK9x24Yt3a3wUVsgFTp0Ef3q2ne0dPSflLRysRnpao70R1+oUil6wW/6tK2PeiwL2giiH+Enli1S+yXmSStqQ==",
+      "path": "microsoft.applicationinsights.agent.intercept/2.4.0",
+      "hashPath": "microsoft.applicationinsights.agent.intercept.2.4.0.nupkg.sha512"
+    }
+  }
+}

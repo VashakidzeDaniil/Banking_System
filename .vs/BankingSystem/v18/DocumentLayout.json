@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\C#\\Banking_System\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A342EE9B-C3B9-4539-8687-48FC57A70327}|BankingSystem.Tests\\BankingSystem.Tests.csproj|c:\\c#\\banking_system\\bankingsystem.tests\\banktests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A342EE9B-C3B9-4539-8687-48FC57A70327}|BankingSystem.Tests\\BankingSystem.Tests.csproj|solutionrelative:bankingsystem.tests\\banktests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|c:\\c#\\banking_system\\bankingsystem\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|solutionrelative:bankingsystem\\bank.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|c:\\c#\\banking_system\\bankingsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|solutionrelative:bankingsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|c:\\c#\\banking_system\\bankingsystem\\bankaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -17,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|c:\\c#\\banking_system\\bankingsystem\\savingsaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|solutionrelative:bankingsystem\\savingsaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|c:\\c#\\banking_system\\bankingsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{191C6CD7-760F-FA5B-48E0-D59B0875DBC1}|BankingSystem\\BankingSystem.csproj|solutionrelative:bankingsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,17 +34,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\C#\\Banking_System\\BankingSystem\\Program.cs",
               "RelativeDocumentMoniker": "BankingSystem\\Program.cs",
               "ToolTip": "C:\\C#\\Banking_System\\BankingSystem\\Program.cs",
               "RelativeToolTip": "BankingSystem\\Program.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAzwBEAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwBEAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-11-11T20:44:27.434Z",
               "IsPinned": true,
@@ -48,7 +52,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
+              "Title": "BankTests.cs",
+              "DocumentMoniker": "C:\\C#\\Banking_System\\BankingSystem.Tests\\BankTests.cs",
+              "RelativeDocumentMoniker": "BankingSystem.Tests\\BankTests.cs",
+              "ToolTip": "C:\\C#\\Banking_System\\BankingSystem.Tests\\BankTests.cs",
+              "RelativeToolTip": "BankingSystem.Tests\\BankTests.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAwwEUAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-12T14:36:00.327Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "SavingsAccount.cs",
               "DocumentMoniker": "C:\\C#\\Banking_System\\BankingSystem\\SavingsAccount.cs",
               "RelativeDocumentMoniker": "BankingSystem\\SavingsAccount.cs",
@@ -56,12 +73,11 @@
               "RelativeToolTip": "BankingSystem\\SavingsAccount.cs",
               "ViewState": "AgIAACMAAAAAAAAAAAA9wAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-11T22:23:20.057Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-11-11T22:23:20.057Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "CheckingAccount.cs",
               "DocumentMoniker": "C:\\C#\\Banking_System\\BankingSystem\\CheckingAccount.cs",
               "RelativeDocumentMoniker": "BankingSystem\\CheckingAccount.cs",
@@ -69,12 +85,11 @@
               "RelativeToolTip": "BankingSystem\\CheckingAccount.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-11T22:23:16.874Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-11-11T22:23:16.874Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "BankAccount.cs",
               "DocumentMoniker": "C:\\C#\\Banking_System\\BankingSystem\\BankAccount.cs",
               "RelativeDocumentMoniker": "BankingSystem\\BankAccount.cs",
@@ -82,18 +97,17 @@
               "RelativeToolTip": "BankingSystem\\BankAccount.cs",
               "ViewState": "AgIAAEwAAAAAAAAAAAAiwHAAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-11T21:00:38.555Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-11-11T21:00:38.555Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Bank.cs",
               "DocumentMoniker": "C:\\C#\\Banking_System\\BankingSystem\\Bank.cs",
               "RelativeDocumentMoniker": "BankingSystem\\Bank.cs",
               "ToolTip": "C:\\C#\\Banking_System\\BankingSystem\\Bank.cs",
               "RelativeToolTip": "BankingSystem\\Bank.cs",
-              "ViewState": "AgIAAFQBAAAAAAAAAAAmwHMBAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAqwBoAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-11-11T20:44:22.596Z",
               "EditorCaption": ""
