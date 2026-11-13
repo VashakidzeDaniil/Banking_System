@@ -1,0 +1,253 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "BankingSystem.Api | v1",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:7071"
+    },
+    {
+      "url": "http://localhost:5048"
+    }
+  ],
+  "paths": {
+    "/api/bank/total-balance": {
+      "get": {
+        "tags": [
+          "BankingSystem.Api"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+                  "type": [
+                    "number",
+                    "string"
+                  ],
+                  "format": "double"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts": {
+      "post": {
+        "tags": [
+          "BankingSystem.Api"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAccountRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "BankingSystem.Api"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BankAccount"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transfers": {
+      "post": {
+        "tags": [
+          "BankingSystem.Api"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransferRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AccountType": {
+        "type": "integer"
+      },
+      "BankAccount": {
+        "required": [
+          "$type"
+        ],
+        "type": "object",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/BankAccountCheckingAccount"
+          },
+          {
+            "$ref": "#/components/schemas/BankAccountSavingsAccount"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "$type",
+          "mapping": {
+            "checking": "#/components/schemas/BankAccountCheckingAccount",
+            "savings": "#/components/schemas/BankAccountSavingsAccount"
+          }
+        }
+      },
+      "BankAccountCheckingAccount": {
+        "required": [
+          "balance",
+          "accountNumber"
+        ],
+        "properties": {
+          "$type": {
+            "enum": [
+              "checking"
+            ],
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AccountType"
+          },
+          "balance": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "isEmpty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "BankAccountSavingsAccount": {
+        "required": [
+          "interestRate",
+          "balance",
+          "accountNumber"
+        ],
+        "properties": {
+          "$type": {
+            "enum": [
+              "savings"
+            ],
+            "type": "string"
+          },
+          "interestRate": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AccountType"
+          },
+          "balance": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "isEmpty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CreateAccountRequest": {
+        "required": [
+          "type",
+          "initialBalance"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/AccountType"
+          },
+          "initialBalance": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          }
+        }
+      },
+      "TransferRequest": {
+        "required": [
+          "from",
+          "to",
+          "amount"
+        ],
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "amount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "BankingSystem.Api"
+    }
+  ]
+}

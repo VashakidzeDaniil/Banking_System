@@ -1,12 +1,24 @@
 ﻿using System.Globalization;
-using System.Text;
 using System.Text.Json;
 
 namespace BankingSystem
 {
     public class Bank
     {
-        private Dictionary<string, BankAccount> accounts = new();
+        private readonly BankDbContext _context;
+        public Bank(BankDbContext context)
+        {
+            _context = context;
+
+            var allAccounts = _context.Accounts.ToList();
+            if(allAccounts.Any())
+            {
+                int maxNumber = allAccounts
+                    .Select(a => int.Parse(a.AccountNumber.Substring(3)))
+                    .Max();
+                BankAccount.SyncCounter(maxNumber);
+            }
+        }
         private static readonly JsonSerializerOptions JsonOpts = new()
         {
             WriteIndented = true,
@@ -14,35 +26,37 @@ namespace BankingSystem
         };
         public void Add(BankAccount account)
         {
-            if (accounts.ContainsKey(account.AccountNumber))
+            if (_context.Accounts.Any(a => a.AccountNumber == account.AccountNumber))
                 throw new ArgumentException("Счёт с таким номером уже существует");
 
-            accounts[account.AccountNumber] = account;
+            _context.Accounts.Add(account);
+            _context.SaveChanges();
         }
         public BankAccount? FindAccount(string accountNumber)
         {
-            accounts.TryGetValue(accountNumber, out BankAccount found);
-            return found;
+            return _context.Accounts.FirstOrDefault(a => a.AccountNumber == accountNumber);
         }
         public bool Transfer(string from, string to, decimal amount)
         {
             if (amount <= 0)
                 throw new ArgumentException("Сумма перевода должна быть положительной");
-            if (!accounts.TryGetValue(from, out BankAccount? withdrawAccount))
-                throw new AccountNotFoundException(from);
-            if (!accounts.TryGetValue(to, out BankAccount? depositAccount))
-                throw new AccountNotFoundException(to);
 
-            if (withdrawAccount.Withdraw(amount))
+            var withrrowAccount = _context.Accounts.FirstOrDefault(a => a.AccountNumber == from);
+            if (withrrowAccount == null) throw new AccountNotFoundException(from);
+            var depositAccount = _context.Accounts.FirstOrDefault(a => a.AccountNumber == to);
+            if (depositAccount == null) throw new AccountNotFoundException(to);
+
+            if(withrrowAccount.Withdraw(amount))
             {
                 depositAccount.Deposit(amount);
+                _context.SaveChanges();
                 return true;
             }
             return false;
         }
         public decimal GetTotalBalance()
         {
-            return accounts.Values.Sum(a => a.Balance);
+            return _context.Accounts.Sum(a => a.Balance);
         }
         public void TestTransfer(string from, string to, decimal amount)
         {
@@ -62,28 +76,12 @@ namespace BankingSystem
         }
         public int CountByType(AccountType type)
         {
-            return accounts.Values.Count(a => a.Type == type);
+            return _context.Accounts.Count(a => a.Type == type);
         }
         public decimal GetAverageBalance()
         {
-            if (accounts.Values.Count <= 0) return 0m;
-            return accounts.Values.Average(a => a.Balance);
-        }
-        public string BuildReport()
-        {
-
-            var accountLines = accounts.Select(pair =>
-            {
-                return $"{pair.Key}: {pair.Value.Balance}";
-            });
-
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("==Отчет по банку==");
-            sb.Append(string.Join(Environment.NewLine, accountLines));
-            sb.AppendLine();
-            sb.AppendLine($"Общий счет: {GetTotalBalance()}");
-
-            return sb.ToString();
+            if (!_context.Accounts.Any()) return 0m;
+            return _context.Accounts.Average(a => a.Balance);
         }
         static public string DescribeAccount(AccountType type)
         {
@@ -111,23 +109,23 @@ namespace BankingSystem
         }
         public BankAccount? GetRichestAccount()
         {
-            return accounts.Values.OrderByDescending(a => a.Balance).FirstOrDefault();
+            return _context.Accounts.OrderByDescending(a => a.Balance).FirstOrDefault();
         }
         public IEnumerable<string> GetAccountNumbersSorted()
         {
-            return accounts.Values.Select(a => a.AccountNumber).OrderBy(n => n);
+            return _context.Accounts.Select(a => a.AccountNumber).OrderBy(n => n);
         }
         public bool HasAccountAbove(decimal threshold)
         {
-            return accounts.Values.Any(a => a.Balance > threshold);
+            return _context.Accounts.Any(a => a.Balance > threshold);
         }
         public IEnumerable<BankAccount> GetAccountsByType(AccountType type)
         {
-            return accounts.Values.Where(a => a.Type == type);
+            return _context.Accounts.Where(a => a.Type == type);
         }
         public decimal GetTotalBalanceByType(AccountType type)
         {
-            return (accounts.Values.Where(a => a.Type == type).Sum(a => a.Balance));
+            return (_context.Accounts.Where(a => a.Type == type).Sum(a => a.Balance));
         }
         public BankAccount? GetFirstPoorAccount(decimal threshold)
         {
@@ -135,29 +133,29 @@ namespace BankingSystem
         }
         public IEnumerable<BankAccount> GetAccountsDescendingByBalance()
         {
-            return accounts.Values.OrderByDescending(a => a.Balance);
+            return _context.Accounts.OrderByDescending(a => a.Balance);
         }
         public List<decimal> GetTopAccounts(int n)
         {
-            return accounts.Values.OrderByDescending(a => a.Balance).
+            return _context.Accounts.OrderByDescending(a => a.Balance).
                                    Take(n).
                                    Select(a => a.Balance).ToList();
         }
         public bool HasAnySavingsAccounts()
         {
-            return accounts.Values.Any(a => a.Type == AccountType.Savings);
+            return _context.Accounts.Any(a => a.Type == AccountType.Savings);
         }
         public bool AllAccountsAbove(decimal threshold)
         {
-            return accounts.Values.All(a => a.Balance > threshold);
+            return _context.Accounts.All(a => a.Balance > threshold);
         }
         public bool HasAccountBelow(decimal threshold)
         {
-            return accounts.Values.Any(a => a.Balance < threshold);
+            return _context.Accounts.Any(a => a.Balance < threshold);
         }
         public Dictionary<AccountType, List<string>> GetAccountsNumbersByType()
         {
-            return accounts.Values
+            return _context.Accounts
                 .Where(a => a.Balance < 5000m)
                 .GroupBy(a => a.Type)
                 .ToDictionary(
@@ -167,53 +165,46 @@ namespace BankingSystem
         }
         public Dictionary<AccountType, decimal> GetTotalBalanceByType()
         {
-            return accounts.Values.GroupBy(a => a.Type).
+            return _context.Accounts.GroupBy(a => a.Type).
                                    ToDictionary(g => g.Key,
                                    g => g.Sum(a => a.Balance));
         }
         public List<string> GetAllSavingsAccountNumbers(decimal threshold)
         {
-            return accounts.Values.Where(a => a.Type == AccountType.Savings && a.Balance > threshold).
+            return _context.Accounts.Where(a => a.Type == AccountType.Savings && a.Balance > threshold).
                                    OrderByDescending(a => a.Balance).
                                    Select(a => a.AccountNumber).ToList();
         }
         public AccountType? GetCommonAccount()
         {
-            var group = accounts.Values.GroupBy(a => a.Type)
+            var group = _context.Accounts.GroupBy(a => a.Type)
                                        .OrderByDescending(g => g.Count())
                                        .FirstOrDefault();
             return group?.Key;
         }
         public bool HasAccountOutRange(decimal min, decimal max)
         {
-            return accounts.Values.Any(a => a.Balance < min || a.Balance > max);
+            return _context.Accounts.Any(a => a.Balance < min || a.Balance > max);
         }
         public decimal GetRoundAverageCheckingBalance()
         {
-            if (!accounts.Values.Any(a => a.Type == AccountType.Checking)) return 0m;
-            return Math.Round(accounts.Values.Where(a => a.Type == AccountType.Checking).
+            if (!_context.Accounts.Any(a => a.Type == AccountType.Checking)) return 0m;
+            return Math.Round(_context.Accounts.Where(a => a.Type == AccountType.Checking).
                                               Average(a => a.Balance));
         }
         public Dictionary<AccountType, int> GetTotalCountByType()
         {
-            return accounts.Values.GroupBy(a => a.Type).
+            return _context.Accounts.GroupBy(a => a.Type).
                                    ToDictionary(g => g.Key,
                                                 g => g.Count());
         }
-        public void ProcessAccounts(Action<BankAccount> action)
-        {
-            foreach (var account in accounts.Values)
-            {
-                action?.Invoke(account);
-            }
-        }
         public BankAccount? FindAccountBy(Func<BankAccount, bool> predicate)
         {
-            return accounts.Values.FirstOrDefault(predicate);
+            return _context.Accounts.FirstOrDefault(predicate);
         }
         public void SaveAccounts(string path)
         {
-            File.WriteAllLines(path, accounts.Values.Select(a => a.ToSaveLine()));
+            File.WriteAllLines(path, _context.Accounts.Select(a => a.ToSaveLine()));
         }
         public void LoadAccounts(string path)
         {
@@ -249,42 +240,9 @@ namespace BankingSystem
             }
             SyncCounterFromNumbers(loadedNumpers);
         }
-        public void SaveReport(string path)
-        {
-            File.WriteAllText(path, BuildReport());
-        }
         public HashSet<AccountType> GetDistinctAccountTypes()
         {
-            return accounts.Values.Select(a => a.Type).ToHashSet();
-        }
-        public async Task<bool> LoadFromJsonAsync(string path)
-        {
-            if (!File.Exists(path)) return false;
-            string json = await File.ReadAllTextAsync(path);
-            Dictionary<string, BankAccount>? loaded = null;
-            try
-            {
-                loaded = JsonSerializer.Deserialize<Dictionary<string, BankAccount>>(json, JsonOpts);
-            }
-            catch (JsonException js)
-            {
-                Console.WriteLine($"Ошибка в Десериализации — {js.Message}");
-                return false;
-            }
-            if (loaded == null) return false;
-
-            accounts.Clear();
-            foreach (var pair in loaded)
-            {
-                Add(pair.Value);
-            }
-            SyncCounterFromNumbers(loaded.Keys);
-
-            return true;
-        }
-        public async Task SaveToJsonAsync(string path)
-        {
-            await File.WriteAllTextAsync(path, JsonSerializer.Serialize(accounts, JsonOpts));
+            return _context.Accounts.Select(a => a.Type).ToHashSet();
         }
         private static void SyncCounterFromNumbers(IEnumerable<string> numbers)
         {
@@ -299,18 +257,18 @@ namespace BankingSystem
         }
         public decimal GetAverageBalanceOfType(AccountType type)
         {
-            if (!accounts.Values.Any(a => a.Type == type)) return 0m;
-            return accounts.Values.Where(a => a.Type == type)
+            if (!_context.Accounts.Any(a => a.Type == type)) return 0m;
+            return _context.Accounts.Where(a => a.Type == type)
                                   .Average(a => a.Balance);
         }
         public bool AnyAccountWithBalanceBelow(decimal threshold)
         {
-            return accounts.Values.Any(a => a.Balance < threshold);
+            return _context.Accounts.Any(a => a.Balance < threshold);
         }
         public decimal GetMaxBalanceOfType(AccountType type)
         {
-            if (!accounts.Values.Any(a => a.Type == type)) return 0m;
-            return accounts.Values.Where(a => a.Type == type).Max(a => a.Balance);
+            if (!_context.Accounts.Any(a => a.Type == type)) return 0m;
+            return _context.Accounts.Where(a => a.Type == type).Max(a => a.Balance);
         }
         /// <summary>
         /// Все счета указанного типа выше порога. На пустом наборе возвращает true
@@ -318,57 +276,61 @@ namespace BankingSystem
         /// </summary>
         public bool AllAccountsOfTypeAbove(AccountType type, decimal threshold)
         {
-            return accounts.Values.Where(a => a.Type == type)
+            return _context.Accounts.Where(a => a.Type == type)
                                   .All(a => a.Balance > threshold);
         }
         public decimal GetMinBalanceOfType(AccountType type)
         {
-            if (!accounts.Values.Any(a => a.Type == type)) return 0m;
-            return accounts.Values.Where(a => a.Type == type)
+            if (!_context.Accounts.Any(a => a.Type == type)) return 0m;
+            return _context.Accounts.Where(a => a.Type == type)
                                   .Min(a => a.Balance);
         }
         public BankAccount? GetRichestOfType(AccountType type)
         {
-            return accounts.Values.Where(a => a.Type == type)
+            return _context.Accounts.Where(a => a.Type == type)
                                   .MaxBy(a => a.Balance);
         }
         public Dictionary<AccountType, decimal> GetAverageByType()
         {
-            return accounts.Values.GroupBy(a => a.Type)
+            return _context.Accounts.GroupBy(a => a.Type)
                                   .ToDictionary(g => g.Key,
                                                 g => g.Average(a => a.Balance));
         }
         public Dictionary<AccountType, List<string>> GetNumbersByTypeAbove(decimal threshold)
         {
-            return accounts.Values.Where(a => a.Balance > threshold)
+            return _context.Accounts.Where(a => a.Balance > threshold)
                            .GroupBy(a => a.Type)
                            .ToDictionary(g => g.Key, g => g.Select(a => a.AccountNumber).ToList());
         }
         public decimal GetTotalBalanceOfTypes(IEnumerable<AccountType> types)
         {
-            return accounts.Values.Where(a => types.Contains(a.Type)).Sum(a => a.Balance);
+            return _context.Accounts.Where(a => types.Contains(a.Type)).Sum(a => a.Balance);
         }
         public List<BankAccount> GetTopRichAccounts(int n)
         {
-            return accounts.Values.OrderByDescending(a => a.Balance).Take(n).ToList();
+            return _context.Accounts.OrderByDescending(a => a.Balance).Take(n).ToList();
         }
         public Dictionary<AccountType, decimal> GetTotalBalanceByTypeAbove(decimal threshold)
         {
-            return accounts.Values.Where(a => a.Balance > threshold)
+            return _context.Accounts.Where(a => a.Balance > threshold)
                                   .GroupBy(g => g.Type)
                                   .ToDictionary(g => g.Key,
                                                 g => g.Sum(a => a.Balance));
         }
         public List<string> GetNumbersAboveSorted(decimal threshold)
         {
-            return accounts.Values.Where(a => a.Balance > threshold)
+            return _context.Accounts.Where(a => a.Balance > threshold)
                                   .OrderByDescending(a => a.Balance)
                                   .Select(a => a.AccountNumber)
                                   .ToList();
         }
         public bool AnyAccountAboveInType(AccountType type, decimal threshold)
         {
-            return accounts.Values.Any(a => a.Type == type && a.Balance > threshold);
+            return _context.Accounts.Any(a => a.Type == type && a.Balance > threshold);
+        }
+        public List<BankAccount> GetAllAccounts()
+        {
+            return _context.Accounts.ToList();
         }
     }
 }

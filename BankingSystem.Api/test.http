@@ -1,0 +1,10 @@
+@host = https://localhost:7071
+
+### Создать первый счет
+POST {{host}}/api/accounts
+Content-Type: application/json
+
+{
+  "type": "Checking",
+  "initialBalance": 1000
+}
